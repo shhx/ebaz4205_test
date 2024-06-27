@@ -1,0 +1,73 @@
+/include/ "system-conf.dtsi"
+// /include/ "ebaz4205.dtsi"
+/ {
+    model = "Zynq EBAZ4205 Board";
+
+    gpio-leds {
+        compatible = "gpio-leds";
+
+        led-red {
+            label = "led-red";
+            gpios = <&gpio0 54 1>;
+            default-state = "on";
+            linux,default-trigger = "heartbeat";
+        };
+
+        led-green {
+            label = "led-green";
+            gpios = <&gpio0 55 1>;
+            default-state = "off";
+        };
+    };
+
+    // gpio-keys {
+    //     compatible = "gpio-keys";
+    //     autorepeat;
+
+    //     s2 {
+    //         label = "s2";
+    //         gpios = <&gpio0 20 1>;
+    //         linux,code = <102>;
+    //         wakeup-source;
+    //     };
+
+    //     s3 {
+    //         label = "s3";
+    //         gpios = <&gpio0 32 1>;
+    //         linux,code = <116>;
+    //         wakeup-source;
+    //     };
+    // };
+
+    amba_pl {
+        dma_proxy {
+            compatible = "xlnx,dma_proxy";
+            dma-names = "dma_proxy_rx";
+            dmas = <&axi_dma_0 1>;
+        };
+    };
+
+    intr_tlast {
+        compatible = "generic-uio";
+        status = "okay";
+        interrupt-names = "intr_tlast_name";
+        interrupt-parent = <&intc>;
+        interrupts = <0 29 1>;
+    };
+
+    // reserved-memory {
+    //     #address-cells = <1>;
+    //     #size-cells = <1>;
+    //     ranges;
+
+    //     reserved: buffer@0x38000000 {
+    //         no-map;
+    //         reg = <0x38000000 0x08000000>;
+    //     };
+    // };
+
+    // reserved-driver@0 {
+    //     compatible = "xlnx,reserved-memory";
+    //     memory-region = <&reserved>;
+    // };
+};
