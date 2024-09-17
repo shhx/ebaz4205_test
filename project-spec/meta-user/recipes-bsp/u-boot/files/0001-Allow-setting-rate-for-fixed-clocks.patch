@@ -1,0 +1,37 @@
+From 34d9911a66c214bf0891389f51156aadbaabaa6e Mon Sep 17 00:00:00 2001
+From: shhx <luisgomezlo.lg@gmail.com>
+Date: Fri, 28 Jun 2024 19:17:15 +0200
+Subject: [PATCH] Allow setting rate for fixed clocks
+
+---
+ drivers/clk/clk_fixed_rate.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/clk/clk_fixed_rate.c b/drivers/clk/clk_fixed_rate.c
+index b5e78c7055..f0e0953a11 100644
+--- a/drivers/clk/clk_fixed_rate.c
++++ b/drivers/clk/clk_fixed_rate.c
+@@ -20,6 +20,12 @@ static ulong clk_fixed_rate_get_rate(struct clk *clk)
+ 	return to_clk_fixed_rate(clk->dev)->fixed_rate;
+ }
+ 
++static ulong clk_fixed_rate_set_rate(struct clk *clk, ulong rate)
++{
++	printf("fixed-rate clock %s: cannot change rate\n", clk->dev->name);
++	return 0;
++}
++
+ /* avoid clk_enable() return -ENOSYS */
+ static int dummy_enable(struct clk *clk)
+ {
+@@ -28,6 +34,7 @@ static int dummy_enable(struct clk *clk)
+ 
+ const struct clk_ops clk_fixed_rate_ops = {
+ 	.get_rate = clk_fixed_rate_get_rate,
++	.set_rate = clk_fixed_rate_set_rate,
+ 	.enable = dummy_enable,
+ 	.disable = dummy_enable,
+ };
+-- 
+2.25.1
+
