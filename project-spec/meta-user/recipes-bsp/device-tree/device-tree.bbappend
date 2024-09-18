@@ -26,4 +26,6 @@ do_configure:append () {
 	-hdf ${DT_FILES_PATH}/hardware_description.${HDF_EXT} -repo ${S} \
 	-data ${data} -sw ${DT_FILES_PATH} -o ${DT_FILES_PATH} -a "soc_mapping"
     fi
+    # Append nfsvers=3 to bootargs
+    sed -i '/bootargs =/s/,tcp/&,nfsvers=3/' ${DT_FILES_PATH}/system-conf.dtsi
 }
