@@ -1,2 +1,5 @@
 #include <configs/zynq-common.h>
-// #define LOG_DEBUG
+
+#ifdef CONFIG_BOOTP_SERVERIP
+#undef CONFIG_BOOTP_SERVERIP
+#endif
