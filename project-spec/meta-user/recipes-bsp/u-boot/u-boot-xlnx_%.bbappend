@@ -15,5 +15,8 @@ do_configure:append:microblaze () {
 }
 SRC_URI += "file://user_2023-12-17-19-32-00.cfg \
             file://user_2024-06-27-11-19-00.cfg \
+            file://0001-Allow-setting-rate-for-fixed-clocks.patch \
             file://netconsole.cfg \
             "
+
+#            file://preboot.cfg
